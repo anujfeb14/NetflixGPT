@@ -3,20 +3,46 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../utils/userSlice";
+import { useEffect } from "react";
+import { addUser } from "../utils/userSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import { LOGO } from "../utils/constants";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector(store => store.user)
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+        navigate("/browse")
+        } else {
+          dispatch(removeUser());
+          navigate("/")
+        }
+      });
+
+      //Unsubscribe when component unmounts
+      return () => unsubscribe();
+    }, []);
+
   const signOutUser = () => {
     signOut(auth)
       .then(() => {
           dispatch(removeUser());
-          navigate("/");
       })
       .catch((error) => {
-          // navigate("/error");
+          navigate("/error");
       });
   };
 
@@ -24,7 +50,7 @@ const Header = () => {
     <div className="absolute pl-4 w-full bg-gradient-to-b from-black z-10 flex justify-between">
       <img
         className="w-40"
-        src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+        src= {LOGO}
         alt="logo"
       />
       {user && (<div className="flex content-center p-2">
