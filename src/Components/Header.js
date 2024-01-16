@@ -77,6 +77,7 @@ const Header = () => {
           <button
             className="p-2 text-white bg-gray-900 m-2 rounded-lg"
             onClick={handleGPTSearchClick}
+            disabled
           >
             {showGPTSearch ? "Home Page" : "GPT Search"}
           </button>

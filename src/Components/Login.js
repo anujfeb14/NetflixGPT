@@ -40,7 +40,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: PHOTO_URL
+            photoURL: PHOTO_URL,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
@@ -84,10 +84,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img
-          src= {BG_IMAGE}
-          alt="background"
-        />
+        <img src={BG_IMAGE} alt="background" />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
