@@ -74,16 +74,23 @@ const Header = () => {
               ))}
             </select>
           )}
-          <button
-            className="p-2 text-white bg-gray-900 m-2 rounded-lg"
-            onClick={handleGPTSearchClick}
-           >
-            {showGPTSearch ? "Home Page" : "GPT Search"}
-          </button>
-          <img className="h-10 w-10" src={user.photoURL} alt="usericon" />
-          <button className="font-bold text-white ml-5" onClick={signOutUser}>
-            Sign Out
-          </button>
+          <div className="flex justify-between w-full">
+            <button
+              className="p-2 text-white bg-gray-900 m-2 rounded-lg"
+              onClick={handleGPTSearchClick}
+            >
+              {showGPTSearch ? "Home Page" : "GPT Search"}
+            </button>
+            <div className="flex items-center">
+              <img className="h-10 w-10" src={user.photoURL} alt="usericon" />
+              <button
+                className="font-bold text-white ml-5"
+                onClick={signOutUser}
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
