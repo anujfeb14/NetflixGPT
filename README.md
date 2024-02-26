@@ -1,3 +1,5 @@
+GPT feature is currently disabled because of gpt subscription expiration.
+
 # Netflix GPT
 
 - Create React App
